@@ -1,1 +1,2 @@
-[{"title":"Test Title","text":"Test text"}]
+[{"routeName": "testtitle","title":"Test Title","text":"Test text"},
+{"routeName": "myfirstnote","title":"My First Note","text":"Something inside here."}]
