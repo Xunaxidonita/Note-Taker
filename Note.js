@@ -1,15 +1,20 @@
 class Note {
-  constructor(routeName, title, text) {
+  constructor(id, routeName, title, text) {
+    this.id = id;
     this.routeName = routeName;
     this.title = title;
     this.text = text;
+  }
+
+  getId() {
+    return this.id;
   }
 
   getName() {
     return this.routeName;
   }
 
-  getId() {
+  getTitle() {
     return this.title;
   }
 

@@ -5,29 +5,18 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const PORT = 3001;
+const notes = require("./api/notes");
+const { getNotes, clearCache } = require("./db/db");
+let id;
 
-Array.prototype.remove = function () {
-  var what,
-    a = arguments,
-    L = a.length,
-    ax;
-  while (L && this.length) {
-    what = a[--L];
-    while ((ax = this.indexOf(what)) !== -1) {
-      this.splice(ax, 1);
-    }
-  }
-  return this;
-};
+async function writeToFile(notes) {
+  await clearCache();
 
-function writeToFile(notes) {
-  fs.writeFile("./dist/team.html", generateIndexHtml(notes), (err) => {
+  fs.writeFile("./db/db.json", JSON.stringify(notes), (err) => {
     if (err) throw new Error(err);
     console.log("Notes updated!");
   });
 }
-
-let notesCache;
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -44,28 +33,15 @@ app.use((req, res, next) => {
   }
 });
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname, "index.html"));
+// });
 
 app.get("/notes", (req, res) => {
-  res.sendFile(path.join(__dirname, "notes.html"));
+  res.sendFile(path.join(__dirname, "public", "notes.html"));
 });
 
-const getNotes = async function () {
-  if (!notesCache) {
-    const notes = await fsPromises.readFile(
-      path.join(__dirname, "db", "db.json")
-    );
-    notesCache = JSON.parse(notes);
-  }
-  return notesCache;
-};
-
-app.get("/api/notes", async (req, res) => {
-  const notes = await getNotes();
-  res.json(notes);
-});
+app.get("/api/notes", notes);
 
 app.get("/api/notes/:note", async (req, res) => {
   const chosen = req.params.note;
@@ -78,11 +54,13 @@ app.get("/api/notes/:note", async (req, res) => {
   }
   return res.json(false);
 });
+
 app.post("/api/notes", async (req, res) => {
   const notes = await getNotes();
   const newNote = req.body;
-  console.log(newNote);
   newNote.routeName = newNote.title.replace(/\s+/g, "").toLowerCase();
+  newNote.id = notes.length + 1;
+  console.log(newNote);
   notes.push(newNote);
   // whatever we respond with here will become what data is
   // on the .then for the api request on the front end
@@ -94,14 +72,14 @@ app.delete("/api/notes/:note", async (req, res) => {
   const notes = await getNotes();
   const chosen = req.params.note;
   console.log(chosen);
-  for (let i = 0; i < notes.length; i++) {
-    if (chosen === notes[i].routeName) {
-      notes.remove(chosen);
-      res.send("DELETE Request Called");
-      writeToFile(notes);
-    }
-  }
-  return res.json(false);
+
+  writeToFile(
+    notes.filter((note) => {
+      return note.id !== chosen;
+    })
+  );
+
+  res.json(true);
 });
 
 app.listen(PORT, () => {

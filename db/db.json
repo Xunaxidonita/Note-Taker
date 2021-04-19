@@ -1,2 +1,20 @@
-[{"routeName": "testtitle","title":"Test Title","text":"Test text"},
-{"routeName": "myfirstnote","title":"My First Note","text":"Something inside here."}]
+[
+    {
+        "id": "1",
+        "routeName": "testtitle",
+        "title": "Test Title",
+        "text": "Test text"
+    },
+    {
+        "id": "2",
+        "routeName": "myfirstnote",
+        "title": "My First Note",
+        "text": "Something inside here."
+    },
+    {
+        "title": "Prepare a picnic",
+        "text": "Plan a place and a menu",
+        "routeName": "prepareapicnic",
+        "id": 4
+    }
+]

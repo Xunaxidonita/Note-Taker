@@ -1,12 +1,7 @@
 const Note = require("../Note.js");
 
 test("creates a Note object", () => {
-  const testNote = new Note(
-    "testtitle",
-    "Test Title",
-    "something inside here",
-    "Freddy"
-  );
+  const testNote = new Note("testtitle", "Test Title", "something inside here");
   expect(testNote.routeName).toEqual(expect.any(String));
   expect(testNote.routeName).toEqual("testtitle");
   expect(testNote.title).toEqual(expect.any(String));
