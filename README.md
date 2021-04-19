@@ -13,10 +13,13 @@ An application to make, edit and store notes.
 
 ## Website
 
-https://xunaxidonita.github.io/Team-Profile-Generator/
+https://github.com/Xunaxidonita/Note-Taker
 
 ## Contribution
 
 Made with ❤️ by Xunaxidonita
 
 ## Screenshot
+
+[![screenshot1-note-taker.png](https://i.postimg.cc/Vk9QXqMb/screenshot1-note-taker.png)](https://postimg.cc/jDjFbJMs)
+[![screenshot2-note-taker.png](https://i.postimg.cc/266spgt4/screenshot2-note-taker.png)](https://postimg.cc/v1Jqf2bB)
