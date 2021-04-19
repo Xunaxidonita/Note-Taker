@@ -12,9 +12,9 @@
         "text": "Something inside here."
     },
     {
-        "title": "Prepare a picnic",
-        "text": "Plan a place and a menu",
-        "routeName": "prepareapicnic",
-        "id": 4
+        "title": "Something",
+        "text": "in the way she moves",
+        "routeName": "something",
+        "id": "3"
     }
 ]

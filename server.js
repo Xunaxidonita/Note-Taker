@@ -59,7 +59,7 @@ app.post("/api/notes", async (req, res) => {
   const notes = await getNotes();
   const newNote = req.body;
   newNote.routeName = newNote.title.replace(/\s+/g, "").toLowerCase();
-  newNote.id = notes.length + 1;
+  newNote.id = (notes.length + 1).toString();
   console.log(newNote);
   notes.push(newNote);
   // whatever we respond with here will become what data is
